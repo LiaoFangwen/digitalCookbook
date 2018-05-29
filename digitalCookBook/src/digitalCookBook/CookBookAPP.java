@@ -116,11 +116,11 @@ public class CookBookAPP {
 		return recipe;
 	}
 	private static Recipe createBaoJiding() {
-		Recipe recipe = new Recipe("Bao Jiding", "Sichuan Dish", 4);
+		Recipe recipe = new Recipe("Bao Jiding", "Shanghai", 4);
 		return recipe;
 	}
 	private static Recipe createGongding() {
-		Recipe recipe = new Recipe("Gong ding", "Sichuan Dish", 4);
+		Recipe recipe = new Recipe("Gong ding", "Shanghai", 4);
 		return recipe;
 	}
 	
@@ -139,10 +139,14 @@ public class CookBookAPP {
 		cb.add(createBaoJiding());
 		cb.add(createGongding());
 		Recipe recipe = cb.getRecipeByName("Gong Bao Jiding");
-		if (recipe != null) {
-			System.out.println(recipe.toString());
-		}
+        Area area = cb.searchArea(recipe.getAreaName());
+
 		cb.getRecipeByArea("Sichuan Dish");
+		cb.deleteArea(area);
+		System.out.println(recipe.getAreaName());
+		
+		
+		
 	}
 
 

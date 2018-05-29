@@ -10,7 +10,6 @@ public class CookBookTest {
 		cb1.createNewArea("SiChuan");
 		cb1.createNewArea("Shanghai");
 		System.out.println(cb1.areaExists("SiChuan"));
-		cb1.printAreas();
 		System.out.println(cb1.searchArea("Shanghai").getAreaName());
 	}
 }
