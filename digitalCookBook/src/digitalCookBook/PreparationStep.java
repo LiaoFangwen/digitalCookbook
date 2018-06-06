@@ -1,21 +1,24 @@
 package digitalCookBook;
 public class PreparationStep {
-	//int preparationStepID; 
-	String content;
+	int preparationStepID; 
+	private String content;
 	
-	PreparationStep(/*int id,*/ String content){
-		//this.idPreparation = id;
+	public PreparationStep(int id, String content){
+		this.preparationStepID = id;
 		this.content = content;
 	}
-	/*
-	public int getPreparationID() {
-		return preparationID;
+	public PreparationStep(String content) {
+		this.content = content;
 	}
 	
-	public void setIdPreparation(int idPreparation) {
-		this.preparationID = idPreparation;
+	public int getPreparationStepID() {
+		return preparationStepID;
 	}
-	*/
+	
+	public void setPreparationStepID(int idPreparation) {
+		this.preparationStepID = idPreparation;
+	}
+	
 	public String getContent() {
 		return content;
 	}

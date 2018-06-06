@@ -2,8 +2,8 @@ package digitalCookBook;
 import java.util.*;
 public class CookBook {
 	private String cbName;
-	private Map <String, Recipe> recipeBook = new HashMap<String, Recipe>();
-	private Map<String, Area> areas = new HashMap<String, Area>();
+	private Map<String, Recipe> recipeBook = new HashMap<String, Recipe>();
+	private Map<String, Area> areaBook = new HashMap<String, Area>();
 	
 	public CookBook(String name){
 		this.cbName = name;
@@ -18,6 +18,7 @@ public class CookBook {
 	 * @param recipe the recipe to add
 	 */
 	public void add(Recipe recipe) {
+		
 		recipeBook.put(recipe.getRecipeName(), recipe);
 		String areaName = recipe.getAreaName();
 		createNewArea(areaName);
@@ -29,7 +30,7 @@ public class CookBook {
 	 * @param name the name for search
 	 * @return the searched recipe
 	 */
-	public Recipe getRecipeByName(String name) {
+	public Recipe getRecipeByName(String name) {		
 		return recipeBook.get(name);
 	}
 	
@@ -50,7 +51,7 @@ public class CookBook {
 	 * @param recipe the recipe for delete
 	 */
 	public void deleteRecipe(Recipe recipe) {
-		searchArea(recipe.getAreaName()).getAreaRecipe().remove(recipe.getRecipeName());
+		recipe.getArea().getAreaRecipe().remove(recipe.getRecipeName());
 		recipeBook.remove(recipe.getRecipeName());
 		recipe = null;
 		System.out.println("Recipe deleted!");
@@ -65,6 +66,7 @@ public class CookBook {
 		Iterator<String> iterator = area.getAreaRecipe().iterator();
 		while(iterator.hasNext()) {
 			recipe = getRecipeByName(iterator.next());
+			recipe.setArea(new Area("Unknown"));
 			recipe.setAreaName("Unknown");
 		}
 		area = null;
@@ -77,7 +79,7 @@ public class CookBook {
 	 * @param newName the new name of the desired area
 	 */
 	public void changeRecipeArea(Recipe recipe, String newName) {
-		Area area = searchArea(recipe.getAreaName());
+		Area area = recipe.getArea();
 		area.getAreaRecipe().remove(recipe.getRecipeName());
 		createNewArea(newName);
 		searchArea(newName).addRecipe(recipe);
@@ -89,7 +91,7 @@ public class CookBook {
 	 * @return the searched area
 	 */
 	public Area searchArea(String searchName) {
-		return areas.get(searchName);
+		return areaBook.get(searchName);
 	}
 	
 	/**
@@ -98,7 +100,7 @@ public class CookBook {
 	 * @return whether the area exists
 	 */
 	public boolean areaExists(String newAreaName) {
-		return areas.containsKey(newAreaName);
+		return areaBook.containsKey(newAreaName);
 	}
 	
 	/**
@@ -109,7 +111,8 @@ public class CookBook {
 		
 		if(!areaExists(newAreaName)) {
 			Area newArea = new Area(newAreaName);
-			areas.put(newAreaName, newArea);
+			areaBook.put(newAreaName, newArea);
 		}		
 	}
+	
 }

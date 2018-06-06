@@ -6,12 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Area {
-	//private int areaID;
+	private int areaID;
 	private String areaName;
 	private List<String> recipeNameList = new ArrayList<String>();
 	
-	Area(/*int id, */String name){
+	
+	public Area(/*int id, */String name){
 		//this.idArea = id;
+		this.areaName = name;
+	}
+	public Area(int id, String name){
+		this.areaID = id;
 		this.areaName = name;
 	}
 	
@@ -23,8 +28,7 @@ public class Area {
 		recipeNameList.add(recipe.getRecipeName());
 	}
 	
-	/*
-	 * public int getIdArea() {
+	public int getAreaID() {
 
 		return areaID;
 	}
@@ -32,7 +36,7 @@ public class Area {
 	public void setIdArea(int idArea) {
 		this.areaID = idArea;
 	}
-		 */
+		 
 	public String getAreaName() {
 		return areaName;
 	}
@@ -47,6 +51,10 @@ public class Area {
 	 */
 	public List<String> getAreaRecipe() {
 		return recipeNameList;
+	}
+	
+	public void setAreaRecipe(List<String> recipeNameList) {
+		this.recipeNameList = recipeNameList;
 	}
 	
 	

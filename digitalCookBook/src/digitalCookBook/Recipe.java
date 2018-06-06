@@ -2,33 +2,54 @@ package digitalCookBook;
 import java.util.*;
 
 public class Recipe {
-	//private int recipeID;
+	private int recipeID;
 	private String recipeName;
 	private int serveAmount;
 	private int cookingTime;
 	private int preparationTime;
-	private String areaName;
-	private Area area;
+	private String recipeDescription = "General";
+	private String areaName = "Unknown";
+	private Area area = new Area("Unknown");
+	private int areaID;
 	private List<Ingredient> requiredIngredients = new ArrayList<Ingredient>();
 	private List<PreparationStep> preparationSteps = new ArrayList<PreparationStep>();
 
-	Recipe(/*int idRecipe, */String nameRe, String areaName, int serveAmount) {
+	public Recipe(/*int idRecipe, */String recipeName, String areaName, int serveAmount) {
 		//this.idRecipe = idRecipe;
-		this.recipeName = nameRe;
+		this.recipeName = recipeName;
 	    this.areaName = areaName;
+	    this.area = new Area("areaName");
 		this.serveAmount = serveAmount;
 	}
+	
+	public Recipe(String recipeName, int serveAmount) {
+		this.recipeName = recipeName;
+		this.serveAmount = serveAmount;
+	}
+	
+	public Recipe(int recipeID, String recipeName, int serveAmount, int cookingTime, int preparationTime, 
+			String description, String areaName, int areaID) {
+		this.recipeID = recipeID;
+		this.recipeName = recipeName;
+		this.serveAmount = serveAmount;
+		this.cookingTime = cookingTime;
+		this.preparationTime = preparationTime;
+	    this.areaName = areaName;
+	    this.recipeDescription = description;
+	    this.area = new Area("areaName");
+	    this.areaID = areaID;
+	}
 
-	/*
-	 * public int getIdRecipe() {
+	
+	public int getRecipeID() {
 
 		return recipeID;
 	}
 
-	public void setIdRecipe(int idRecipe) {
+	public void setRecipeID(int idRecipe) {
 		this.recipeID = idRecipe;
 	}
-*/
+	
 	public String getRecipeName() {
 		return recipeName;
 	}
@@ -40,11 +61,19 @@ public class Recipe {
 	public String getAreaName() {
 		return areaName;
 	}
-
+	
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
+	
+	public String getRecipeDescription() {
+		return recipeDescription;
+	}
 
+	public void setRecipeDescription(String recipeDescription) {
+		this.recipeDescription = recipeDescription;
+	}
+	
 	public int getServeAmount() {
 		return serveAmount;
 	}
@@ -76,21 +105,20 @@ public class Recipe {
 	public void setArea(Area area) {
 		this.area = area;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public int getAreaID() {
+		return areaID;
+	}
+
+	public void setAreaID(int areaID) {
+		this.areaID = areaID;
+	}
+
 	
 	public List<PreparationStep> getPreparationSteps() {
 		return preparationSteps;
 	}
 
-	public void setPreparationStep(List<PreparationStep> preparationSteps) {
+	public void setPreparationSteps(List<PreparationStep> preparationSteps) {
 		this.preparationSteps = preparationSteps;
 	}
 	
@@ -134,6 +162,10 @@ public class Recipe {
 		return requiredIngredients;
 	}
 
+	public void setRequiredIngredients(List<Ingredient> requiredIngredients) {
+		this.requiredIngredients = requiredIngredients;
+	}
+		
 	public void addIngredient(Ingredient ingredient) {
 		requiredIngredients.add(ingredient);
 	}

@@ -139,9 +139,10 @@ public class CookBookAPP {
 		cb.add(createBaoJiding());
 		cb.add(createGongding());
 		Recipe recipe = cb.getRecipeByName("Gong Bao Jiding");
+		System.out.println(recipe);
         Area area = cb.searchArea(recipe.getAreaName());
 
-		cb.getRecipeByArea("Sichuan Dish");
+		//cb.getRecipeByArea("Sichuan Dish");
 		cb.deleteArea(area);
 		System.out.println(recipe.getAreaName());
 		
