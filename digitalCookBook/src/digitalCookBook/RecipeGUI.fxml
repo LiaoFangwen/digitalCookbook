@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="digitalCookBook.RecipeViewController">
+   <children>
+      <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Label fx:id="recipeNameLabel" layoutX="458.0" layoutY="149.0" text="name" />
+            <Label fx:id="backLabel" layoutX="43.0" layoutY="36.0" onMouseClicked="#backToMain" prefHeight="41.0" prefWidth="142.0" text="Back to main menu" textFill="#001eff">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="editLabel" layoutX="626.0" layoutY="77.0" text="edit" />
+            <Label layoutX="97.0" layoutY="183.0" text="Description:" />
+            <ScrollPane fx:id="stepPane" layoutX="97.0" layoutY="386.0" prefHeight="200.0" prefWidth="440.0" vbarPolicy="ALWAYS" />
+            <ScrollPane fx:id="ingredientPane" layoutX="97.0" layoutY="231.0" prefHeight="138.0" prefWidth="440.0" vbarPolicy="ALWAYS" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

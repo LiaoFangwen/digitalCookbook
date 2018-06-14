@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="digitalCookBook.SearchViewController">
+   <children>
+      <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField id="serachField" fx:id="searchField" layoutX="35.0" layoutY="97.0" onKeyTyped="#newSearch" prefHeight="40.0" prefWidth="550.0" promptText="Type in the name of the recipe" />
+            <Label fx:id="backLabel" layoutX="35.0" layoutY="27.0" onMouseClicked="#backToMain" text="&lt;-- Back" textFill="#0025dd">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="77.0" layoutY="179.0" text="You are Searching for" />
+            <ScrollPane fx:id="resultPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="35.0" layoutY="217.0" prefHeight="329.0" prefWidth="646.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="217.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            <Label layoutX="595.0" layoutY="104.0" text="or" />
+            <Label fx:id="searchArea" layoutX="622.0" layoutY="101.0" onMouseClicked="#showRecipe" text="Search by area" textFill="#0066ff" underline="true">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="268.0" layoutY="174.0" prefHeight="40.0" prefWidth="0.0" textFill="#1302ff">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

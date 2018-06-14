@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="70.0" layoutY="20.0" text="Edit your own recipe">
+         <font>
+            <Font name="AR CENA" size="26.0" />
+         </font></Label>
+      <Label layoutX="70.0" layoutY="70.0" text="name of the recipe:" />
+      <Label layoutX="70.0" layoutY="110.0" text="Description:" />
+      <Label layoutX="70.0" layoutY="150.0" text="Ingredient:" />
+      <TextField layoutX="220.0" layoutY="65.0" prefHeight="20.0" prefWidth="175.0" />
+      <Label layoutX="227.0" layoutY="180.0" text="amount" />
+      <Label layoutX="93.0" layoutY="180.0" text="material" />
+      <Label layoutX="371.0" layoutY="180.0" text="unit" />
+      <TextField layoutX="220.0" layoutY="115.0" prefHeight="30.0" prefWidth="518.0" />
+      <TextField layoutX="70.0" layoutY="210.0" prefHeight="30.0" prefWidth="110.0" />
+      <TextField layoutX="70.0" layoutY="250.0" prefHeight="30.0" prefWidth="110.0" />
+      <TextField layoutX="200.0" layoutY="210.0" prefHeight="30.0" prefWidth="110.0" />
+      <TextField layoutX="200.0" layoutY="250.0" prefHeight="30.0" prefWidth="110.0" />
+      <TextField layoutX="330.0" layoutY="250.0" prefHeight="30.0" prefWidth="110.0" />
+      <TextField layoutX="330.0" layoutY="210.0" prefHeight="30.0" prefWidth="110.0" />
+      <Label layoutX="70.0" layoutY="350.0" text="Step 1:" />
+      <TextField layoutX="70.0" layoutY="380.0" prefHeight="30.0" prefWidth="376.0" />
+      <Button layoutX="500.0" layoutY="210.0" mnemonicParsing="false" text="delete this row" />
+      <Button layoutX="500.0" layoutY="250.0" mnemonicParsing="false" text="delete this row" />
+      <Button layoutX="70.0" layoutY="300.0" mnemonicParsing="false" text="add one more row" />
+      <Button layoutX="499.0" layoutY="528.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="66.0" text="save" />
+      <Button layoutX="608.0" layoutY="528.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" text="cancle" />
+      <Button layoutX="70.0" layoutY="430.0" mnemonicParsing="false" text="add one more step" />
+      <Label layoutX="70.0" layoutY="480.0" text="cookingtime:" />
+      <Label layoutX="70.0" layoutY="520.0" text="preparationtime:" />
+      <TextField layoutX="220.0" layoutY="480.0" prefHeight="30.0" prefWidth="110.0" />
+      <TextField layoutX="220.0" layoutY="520.0" prefHeight="30.0" prefWidth="110.0" />
+      <Button layoutX="585.0" layoutY="41.0" mnemonicParsing="false" text="delete this recipe" textFill="#eb0505" />
+      <Button layoutX="500.0" layoutY="380.0" mnemonicParsing="false" text="delete this row" />
+   </children>
+</AnchorPane>
