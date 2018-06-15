@@ -110,12 +110,12 @@ public class CookBook {
 	 * @param name
 	 * @return
 	 */
-	public static Recipe getRecipeByName(String name) {
+	public static Recipe getRecipeByID(long id) {
 		Iterator<Entry<Long, Recipe>> recipeBookIt = recipeBook.entrySet().iterator();
 		Recipe recipe = null;
 		while (recipeBookIt.hasNext()) {
 			Map.Entry<Long, Recipe> entry = (Map.Entry<Long, Recipe>) recipeBookIt.next();
-			if(name.equals(entry.getValue().getRecipeName())) {
+			if(id == entry.getValue().getIdRecipe()) {
 			recipe=entry.getValue();
 			}
 		}
@@ -135,13 +135,13 @@ public class CookBook {
 
 		Area area = searchArea(areaName);
 
-		List<String> resultList = area.getAreaRecipe();
+		List<Long> resultList = area.getAreaRecipe();
 
-		Iterator<String> iterator = resultList.iterator();
+		Iterator<Long> iterator = resultList.iterator();
 
 		while (iterator.hasNext())
 
-			System.out.println(iterator.next());
+			System.out.println(recipeBook.get(iterator.next()).getRecipeName());
 
 	}
 
@@ -158,7 +158,7 @@ public class CookBook {
 
 	public static void deleteRecipe(Recipe recipe) throws ClassNotFoundException, SQLException {
 
-		searchArea(recipe.getAreaName()).getAreaRecipe().remove(recipe.getRecipeName());
+		searchArea(recipe.getAreaName()).getAreaRecipe().remove(recipe.getIdRecipe());
 
 		recipeBook.remove(recipe.getIdRecipe());
 
@@ -166,7 +166,7 @@ public class CookBook {
 
 		recipe = null;
 
-		System.out.println("Recipe deleted!");
+		//System.out.println("Recipe deleted!");
 
 	}
 
@@ -187,11 +187,11 @@ public class CookBook {
 
 		Recipe recipe = null;
 
-		Iterator<String> iterator = area.getAreaRecipe().iterator();
+		Iterator<Long> iterator = area.getAreaRecipe().iterator();
 
 		while (iterator.hasNext()) {
 
-			recipe = getRecipeByName(iterator.next());
+			recipe = getRecipeByID(iterator.next());
 
 			recipe.setAreaName("Unknown");
 
@@ -290,29 +290,44 @@ public class CookBook {
 	}
 
 	public static void editRecipe(Recipe recipeOld,Recipe recipeNew) throws ClassNotFoundException, SQLException {
+		searchArea(recipeNew.getAreaName()).addRecipe(recipeNew);
+
 		long idRecipe = recipeOld.getIdRecipe();
 		recipeNew.setIdRecipe(idRecipe);
-	
+		
+		for(Ingredient ingredient:recipeNew.getRequiredIngredients()) {
+			ingredient.setRecipeID(idRecipe);
+		}
+		
+		for(PreparationStep step:recipeNew.getPreparationSteps()) {
+			step.setRecipeID(idRecipe);
+		}
+		createNewArea(recipeNew.getAreaName());
+		
 		CookBookDB.updateRecipe(recipeNew, recipeOld.getRequiredIngredients(), recipeOld.getPreparationSteps());	
 		recipeBook.remove(idRecipe);
 		recipeBook.put(idRecipe, recipeNew);
 		
-		
 	}
 	
 	public static Map<Long, Recipe> getRecipeBook() {
+		
 		return recipeBook;
 	}
 
 	public static void setRecipeBook(Map<Long, Recipe> recipeBook) {
+		
 		CookBook.recipeBook = recipeBook;
 	}
 
 	public static Map<String, Area> getAreas() {
+		
 		return areas;
+		
 	}
 
 	public static void setAreas(Map<String, Area> areas) {
+		
 		CookBook.areas = areas;
 	}
 

@@ -12,7 +12,7 @@ public class Area {
 
 	private String areaName;
 
-	private List<String> recipeNameList = new ArrayList<String>();
+	private List<Long> recipeNameList = new ArrayList<Long>();
 
 	Area() {
 
@@ -34,7 +34,7 @@ public class Area {
 
 	public void addRecipe(Recipe recipe) {
 
-		recipeNameList.add(recipe.getRecipeName());
+		recipeNameList.add(recipe.getIdRecipe());
 
 	}
 
@@ -70,7 +70,7 @@ public class Area {
 	 * 
 	 */
 
-	public List<String> getAreaRecipe() {
+	public List<Long> getAreaRecipe() {
 
 		return recipeNameList;
 

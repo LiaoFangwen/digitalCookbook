@@ -53,7 +53,7 @@ public class CookBookDB {
 		ResultSet set = getIngredientData();
 		while (set.next()) {
 			Ingredient ingredient = new Ingredient();
-			ingredient.setRecipeID((long)set.getObject(1));
+			ingredient.setRecipeID((long) set.getObject(1));
 			ingredient.setIngredientName(set.getString(2));
 			ingredient.setQuantity((double) set.getObject(3));
 			ingredient.setUnit(set.getString(4));
@@ -86,7 +86,7 @@ public class CookBookDB {
 			ResultSet setArea = getAreaData();
 			String areaName = null;
 			while (setArea.next()) {
-				if ((set.getObject("area_id"))!= null) {
+				if ((set.getObject("area_id")) != null) {
 					if ((int) set.getObject("area_id") == (int) setArea.getObject("area_id")) {
 						areaName = setArea.getString("name");
 						break;
@@ -240,7 +240,7 @@ public class CookBookDB {
 		timeStatement.setLong(2, recipe.getIdRecipe());
 		timeStatement.executeUpdate();
 	}
-	
+
 	public static void updatePreparationTime(Recipe recipe, long time) throws SQLException, ClassNotFoundException {
 		Connection con = getConnection();
 		String sql = "update recipe set preparationTime=? where recipe_id=?";
@@ -249,84 +249,102 @@ public class CookBookDB {
 		timeStatement.setLong(2, recipe.getIdRecipe());
 		timeStatement.executeUpdate();
 	}
-	
+
 	/**
 	 * use the 'update sql'
+	 * 
 	 * @param recipeNew
 	 * @param ingredientOld
 	 * @param preparationOid
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	
-	
-	public static void updateRecipe(Recipe recipeNew,List<Ingredient> ingredientOld, List<PreparationStep> preparationOld) throws SQLException, ClassNotFoundException{
+
+	public static void updateRecipe(Recipe recipeNew, List<Ingredient> ingredientOld,
+			List<PreparationStep> preparationOld) throws SQLException, ClassNotFoundException {
 		Connection con = getConnection();
 		String sql = "update recipe set name = ?, area_id = ?, where recipe_id = ?";
 		PreparedStatement recipeStatement = con.prepareStatement(sql);
-		recipeStatement.setString(1,recipeNew.getRecipeName());
-		recipeStatement.setInt(2,recipeNew.getAreaID());
+		recipeStatement.setString(1, recipeNew.getRecipeName());
+		recipeStatement.setInt(2, recipeNew.getAreaID());
 		recipeStatement.setLong(3, recipeNew.getIdRecipe());
-		updateCookingTime(recipeNew,recipeNew.getCookingTime());
-		updatePreparationTime(recipeNew,recipeNew.getPreparationTime());
-		updateIngredientList(ingredientOld,recipeNew.getRequiredIngredients());
-		updatePreparationStepList(preparationOld,recipeNew.getPreparationSteps());
-		
+		updateCookingTime(recipeNew, recipeNew.getCookingTime());
+		updatePreparationTime(recipeNew, recipeNew.getPreparationTime());
+		updateIngredientList(ingredientOld, recipeNew.getRequiredIngredients());
+		updatePreparationStepList(preparationOld, recipeNew.getPreparationSteps());
+
 	}
-	
-	public static void updateIngredient(Ingredient ingredientOld,Ingredient ingredientNew)throws SQLException,ClassNotFoundException{
-		Connection con = getConnection();
-		String sql = "update ingredient set name = ?, quantity = ?, unit = ?, description = ?, where recipe_id = ? and name = ?";
-		PreparedStatement ingredientStatement = con.prepareStatement(sql);
-		ingredientStatement.setString(1, ingredientNew.getIngredientName());
-		ingredientStatement.setDouble(2,ingredientNew.getQuantity());
-		ingredientStatement.setString(3, ingredientNew.getUnit());
-		ingredientStatement.setString(4, ingredientNew.getDescription());
-		ingredientStatement.setLong(5, ingredientOld.getRecipeID());
-		ingredientStatement.setString(6, ingredientOld.getIngredientName());
-	}
-	
-	public static void updateIngredientList(List<Ingredient> ingredientListOld,List<Ingredient>ingredientListNew) throws ClassNotFoundException, SQLException {
-		Iterator<Ingredient> listOld = ingredientListOld.iterator();
-		Iterator<Ingredient> listNew = ingredientListNew.iterator();
-		while(listOld.hasNext()) {
-			Ingredient ingredientOld = listOld.next();
-			Ingredient ingredientNew = listNew.next();
-			updateIngredient(ingredientOld,ingredientNew);
+
+	public static void updateIngredientList(List<Ingredient> ingredientOld, List<Ingredient> ingredientNew)
+			throws ClassNotFoundException, SQLException {
+		Iterator<Ingredient> iterator = ingredientOld.iterator();
+		while (iterator.hasNext()) {
+			deleteIngredientDB(iterator.next());
+		}
+
+		iterator = ingredientNew.iterator();
+		while (iterator.hasNext()) {
+			addIngredientDB(iterator.next());
 		}
 	}
-	
-	public static void updatePreparationStep(PreparationStep stepOld, PreparationStep stepNew) throws ClassNotFoundException, SQLException {
-		Connection con = getConnection();
-		String sql = "update preparation_step set step = ? where recipe_id = ? and step = ? ";
-		PreparedStatement stepStatement = con.prepareStatement(sql);
-		stepStatement.setString(1,stepNew.getContent());
-		stepStatement.setLong(2, stepOld.getRecipeID());
-		stepStatement.setString(3,stepOld.getContent());
-	}
-	
-	public static void updatePreparationStepList(List<PreparationStep> stepOld, List<PreparationStep> stepNew) throws ClassNotFoundException, SQLException {
-		Iterator<PreparationStep> listOld = stepOld.iterator();
-		Iterator<PreparationStep> listNew = stepNew.iterator();
-		while(listOld.hasNext()) {
-			PreparationStep step_Old = listOld.next();
-			PreparationStep step_New = listNew.next();
-			updatePreparationStep(step_Old,step_New);
+
+	public static void updatePreparationStepList(List<PreparationStep> stepOld, List<PreparationStep> stepNew)
+			throws ClassNotFoundException, SQLException {
+		Iterator<PreparationStep> iterator = stepOld.iterator();
+		while (iterator.hasNext()) {
+			deletePreparationDB(iterator.next());
+		}
+
+		iterator = stepNew.iterator();
+		while (iterator.hasNext()) {
+			addPreparationDB(iterator.next());
 		}
 	}
-	
-	
-	/*
-	public static void updateRecipe(Recipe recipeNew) throws ClassNotFoundException, SQLException {
-		Connection con = getConnection();
-		String sql = "delete from recipe where recipe_id = ?";
-		PreparedStatement recipeStatement = con.prepareStatement(sql);
-		recipeStatement.setLong(1, recipeNew.getIdRecipe());
-		
-	}
-	*/
-	
-	
-	
+	/**
+	 * public static void updateIngredient(Ingredient ingredientOld,Ingredient
+	 * ingredientNew)throws SQLException,ClassNotFoundException{ Connection con =
+	 * getConnection(); String sql = "update ingredient set name = ?, quantity = ?,
+	 * unit = ?, description = ?, where recipe_id = ? and name = ?";
+	 * PreparedStatement ingredientStatement = con.prepareStatement(sql);
+	 * ingredientStatement.setString(1, ingredientNew.getIngredientName());
+	 * ingredientStatement.setDouble(2,ingredientNew.getQuantity());
+	 * ingredientStatement.setString(3, ingredientNew.getUnit());
+	 * ingredientStatement.setString(4, ingredientNew.getDescription());
+	 * ingredientStatement.setLong(5, ingredientOld.getRecipeID());
+	 * ingredientStatement.setString(6, ingredientOld.getIngredientName()); }
+	 * 
+	 * public static void updateIngredientList(List<Ingredient>
+	 * ingredientListOld,List<Ingredient>ingredientListNew) throws
+	 * ClassNotFoundException, SQLException { Iterator<Ingredient> listOld =
+	 * ingredientListOld.iterator(); Iterator<Ingredient> listNew =
+	 * ingredientListNew.iterator(); while(listOld.hasNext()) { Ingredient
+	 * ingredientOld = listOld.next(); Ingredient ingredientNew = listNew.next();
+	 * updateIngredient(ingredientOld,ingredientNew); } }
+	 * 
+	 * public static void updatePreparationStep(PreparationStep stepOld,
+	 * PreparationStep stepNew) throws ClassNotFoundException, SQLException {
+	 * Connection con = getConnection(); String sql = "update preparation_step set
+	 * step = ? where recipe_id = ? and step = ? "; PreparedStatement stepStatement
+	 * = con.prepareStatement(sql); stepStatement.setString(1,stepNew.getContent());
+	 * stepStatement.setLong(2, stepOld.getRecipeID());
+	 * stepStatement.setString(3,stepOld.getContent()); }
+	 * 
+	 * public static void updatePreparationStepList(List<PreparationStep> stepOld,
+	 * List<PreparationStep> stepNew) throws ClassNotFoundException, SQLException {
+	 * Iterator<PreparationStep> listOld = stepOld.iterator();
+	 * Iterator<PreparationStep> listNew = stepNew.iterator();
+	 * while(listOld.hasNext()) { PreparationStep step_Old = listOld.next();
+	 * PreparationStep step_New = listNew.next();
+	 * updatePreparationStep(step_Old,step_New); } }
+	 * 
+	 * 
+	 * /* public static void updateRecipe(Recipe recipeNew) throws
+	 * ClassNotFoundException, SQLException { Connection con = getConnection();
+	 * String sql = "delete from recipe where recipe_id = ?"; PreparedStatement
+	 * recipeStatement = con.prepareStatement(sql); recipeStatement.setLong(1,
+	 * recipeNew.getIdRecipe());
+	 * 
+	 * }
+	 */
 
 }
