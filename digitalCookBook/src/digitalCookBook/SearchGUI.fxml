@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -11,7 +12,10 @@
    <children>
       <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField id="serachField" fx:id="searchField" layoutX="35.0" layoutY="97.0" onKeyTyped="#newSearch" prefHeight="40.0" prefWidth="550.0" promptText="Type in the name of the recipe" />
+            <TextField id="serachField" fx:id="searchField1" layoutX="29.0" layoutY="98.0" onKeyTyped="#newSearch" prefHeight="40.0" prefWidth="550.0" promptText="Type in the name of the recipe">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
             <Label fx:id="backLabel" layoutX="35.0" layoutY="27.0" onMouseClicked="#backToMain" text="&lt;-- Back" textFill="#0025dd">
                <font>
                   <Font size="28.0" />
@@ -24,7 +28,7 @@
               </content>
             </ScrollPane>
             <Label layoutX="595.0" layoutY="104.0" text="or" />
-            <Label fx:id="searchArea" layoutX="622.0" layoutY="101.0" onMouseClicked="#showRecipe" text="Search by area" textFill="#0066ff" underline="true">
+            <Label fx:id="searchArea" layoutX="622.0" layoutY="101.0" onMouseClicked="#showArea" text="Search by area" textFill="#0066ff" underline="true">
                <font>
                   <Font size="23.0" />
                </font>

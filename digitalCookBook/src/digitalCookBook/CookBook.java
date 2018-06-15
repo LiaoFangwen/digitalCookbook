@@ -65,6 +65,7 @@ public class CookBook {
 		while(iteratorIngredient.hasNext()) {
 			Ingredient ingredient = iteratorIngredient.next();
 			ingredient.setRecipeID(recipe.getIdRecipe());
+			CookBookDB.addIngredientDB(ingredient);
 		}
 		
 		recipeBook.put(recipe.getIdRecipe(), recipe);
@@ -114,7 +115,7 @@ public class CookBook {
 		Recipe recipe = null;
 		while (recipeBookIt.hasNext()) {
 			Map.Entry<Long, Recipe> entry = (Map.Entry<Long, Recipe>) recipeBookIt.next();
-			if(name == entry.getValue().getRecipeName()) {
+			if(name.equals(entry.getValue().getRecipeName())) {
 			recipe=entry.getValue();
 			}
 		}

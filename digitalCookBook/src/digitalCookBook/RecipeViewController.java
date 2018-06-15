@@ -1,5 +1,6 @@
 package digitalCookBook;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -66,6 +67,10 @@ public class RecipeViewController {
 		stepPane.setContent(vb2);
 		
     }
+	@FXML
+	public void showEdit() throws IOException {
+		mainApp.showEditView();
+	}
     
 	public void setInformation(Recipe recipe) {
 		this.recipe = recipe;

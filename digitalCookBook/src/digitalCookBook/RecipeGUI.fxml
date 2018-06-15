@@ -16,7 +16,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="editLabel" layoutX="626.0" layoutY="77.0" text="edit" />
+            <Label fx:id="editLabel" layoutX="626.0" layoutY="77.0" onMouseClicked="#showEdit" text="edit" />
             <Label layoutX="97.0" layoutY="183.0" text="Description:" />
             <ScrollPane fx:id="stepPane" layoutX="97.0" layoutY="386.0" prefHeight="200.0" prefWidth="440.0" vbarPolicy="ALWAYS" />
             <ScrollPane fx:id="ingredientPane" layoutX="97.0" layoutY="231.0" prefHeight="138.0" prefWidth="440.0" vbarPolicy="ALWAYS" />

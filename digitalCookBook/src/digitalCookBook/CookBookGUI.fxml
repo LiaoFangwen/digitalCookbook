@@ -10,7 +10,7 @@
    <children>
       <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="searchLabel" layoutX="448.0" layoutY="429.0" prefHeight="103.0" prefWidth="239.0" text="Search recipe by area" />
+            <Label fx:id="searchLabel" layoutX="448.0" layoutY="429.0" onMouseClicked="#showArea" prefHeight="103.0" prefWidth="239.0" text="Search recipe by area" />
             <Label fx:id="mainTitle" alignment="CENTER" layoutX="139.0" layoutY="93.0" prefHeight="249.0" prefWidth="506.0" text="My Cook Book" textAlignment="CENTER" textFill="#ffb700">
                <font>
                   <Font size="70.0" />
@@ -22,8 +22,8 @@
                </font>
             </Label>
             <TextField fx:id="searchField" layoutX="50.0" layoutY="342.0" onKeyTyped="#showSearchResult" prefHeight="39.0" prefWidth="626.0" promptText="Type in name" />
-            <Label fx:id="addLabel" layoutX="198.0" layoutY="467.0" text="Add a recipe" />
-            <Button fx:id="searchBtn" layoutX="687.0" layoutY="339.0" mnemonicParsing="false" text="search" textFill="#a1e1aa">
+            <Label fx:id="addLabel" layoutX="198.0" layoutY="467.0" onMouseClicked="#showEdit" text="Add a recipe" />
+            <Button fx:id="searchBtn" layoutX="687.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#showSearchResult" text="search" textFill="#a1e1aa">
                <font>
                   <Font size="21.0" />
                </font>

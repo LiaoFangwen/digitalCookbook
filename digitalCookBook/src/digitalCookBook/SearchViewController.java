@@ -37,16 +37,12 @@ public class SearchViewController {
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
-	private List<Recipe> resultList = new ArrayList<Recipe>();
 	public List<Recipe> getResultList() {
+		List<Recipe> resultList = cb.searchRecipeByKeyword(searchString);
 		return resultList;
 	}
-	public void setResultList(Recipe recipe) {
-		resultList.add(recipe);
-	}
+	
 	public SearchViewController() {
-		resultList.add(mainApp.testRecipe1);
-		resultList.add(mainApp.testRecipe2);
 		
 		
 	}
@@ -55,7 +51,7 @@ public class SearchViewController {
 	@FXML
 	private Label backLabel;
 	@FXML
-	private TextField searchField;
+	private TextField searchField1;
 	@FXML
 	private AnchorPane mainPane;
 	@FXML
@@ -68,21 +64,29 @@ public class SearchViewController {
 	}
 	@FXML
     public void backToMain() {
-    	mainApp.getSearchStage().close();
+    	mainApp.showCookBookView();
     }
+	@FXML
+	public void showEdit() throws IOException {
+		mainApp.showEditView();
+	}
 	@FXML
 	public void showTheRecipe(Recipe recipe) throws IOException {
 		mainApp.showRecipeView(recipe);
 	}
 	@FXML
 	public void newSearch() throws IOException {
-		backToMain();
-		mainApp.showSearchView();
+		setSearchString(searchField1.getText());
+		showRecipe();
 	}
+	@FXML
+    public void showArea() throws IOException {
+    	mainApp.showAreaView();
+    }
 	@FXML
 	public void showRecipe() {
 		VBox vb = new VBox();
-		Iterator<Recipe> iterator = resultList.iterator();
+		Iterator<Recipe> iterator = getResultList().iterator();
 		while(iterator.hasNext()) {
 			
 			GridPane grid = new GridPane();
@@ -98,7 +102,7 @@ public class SearchViewController {
 			
 			grid.add(name, 0, 0);
 			grid.add(d, 0, 1);
-			;
+			
 			grid.setOnMouseClicked((new EventHandler<MouseEvent>() {    
 	            @Override  
 	            public void handle(MouseEvent event) {  
@@ -115,5 +119,8 @@ public class SearchViewController {
 		}
 		resultPane.setContent(vb);
 		
+	}
+	public void setSearchField1(String s) {
+		searchField1.setText(s);
 	}
 }

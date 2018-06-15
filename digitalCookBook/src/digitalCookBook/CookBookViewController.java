@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class CookBookViewController {
+	public static String searchString;
 	@FXML
 	private Label addLabel;
 	@FXML
@@ -30,11 +31,6 @@ public class CookBookViewController {
 	@FXML
     private MainApp mainApp;
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-    
     
     /**
      * Is called by the main application to give a reference back to itself.
@@ -51,8 +47,18 @@ public class CookBookViewController {
     }
     @FXML
     public void showSearchResult() throws IOException {
+    	searchString = searchField.getText();
+    	
     	mainApp.showSearchView();
     }
+    @FXML
+    public void showArea() throws IOException {
+    	mainApp.showAreaView();
+    }
+    @FXML
+	public void showEdit() throws IOException {
+		mainApp.showEditView();
+	}
     
 }
 

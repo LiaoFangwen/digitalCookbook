@@ -202,6 +202,7 @@ public class Recipe {
 
 		requiredIngredients.add(ingredient);
 
+
 	}
 
 	public void deleteIngredients(String ingredient) throws ClassNotFoundException, SQLException {

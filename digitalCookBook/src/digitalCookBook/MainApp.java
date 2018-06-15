@@ -2,6 +2,7 @@ package digitalCookBook;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +16,21 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
     private Stage primaryStage;
-    private Stage searchStage;
+    private Scene searchScene;
     private Stage recipeStage;
-	private Stage AreaStage;
-    static Recipe testRecipe1;
-    static Recipe testRecipe2;
-    static CookBook testcb;
+	private Scene areaScene;
+	private Stage editStage;
+ 
+    public Scene getAreaScene() {
+		return areaScene;
+	}
+	public void setAreaScene(Scene areaScene) {
+		this.areaScene = areaScene;
+	}
+	private static CookBook testcb;
+    private static CookBookDB testdb;
     
+	
 	//private BorderPane rootLayout;
 	@Override
     public void start(Stage primaryStage) throws IOException {
@@ -53,20 +62,23 @@ public class MainApp extends Application {
 	
 	 public void showSearchView() throws IOException {
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchGUI.fxml"));
-	    	searchStage = new Stage();
+	    	
 	    	AnchorPane searchView = loader.load();
-	    	searchStage.setTitle("Search Rusults");
+	    	searchScene = new Scene(searchView);
+	    	//searchStage.setTitle("Search Rusults");
 	    	
 	    	//searchGUI.initModality(Modality.WINDOW_MODAL);
 	    	//searchGUI.initOwner(primaryStage);
 	    	SearchViewController controller = loader.getController();
 	        controller.setMainApp(this);	
-	        controller.showRecipe();
 	        controller.setCb(testcb);
-	        controller.setSearchString("Gong Bao Jiba");
-	    	Scene scene = new Scene(searchView);
-	    	searchStage.setScene(scene);
-	    	searchStage.showAndWait();
+	        controller.setSearchField1(CookBookViewController.searchString);
+	        controller.setSearchString(CookBookViewController.searchString);
+	        controller.showRecipe();
+	        
+	    	//Scene scene = new Scene(searchView);
+	    	primaryStage.setScene(searchScene);
+	    	primaryStage.show();
 	    	
 	    }
 	 public void showRecipeView(Recipe recipe) throws IOException {
@@ -82,21 +94,70 @@ public class MainApp extends Application {
 		 recipeStage.setScene(scene);
 		 recipeStage.showAndWait();
 	 }
-	 public Stage getSearchStage() {
-			return searchStage;
+	 
+	 public void showAreaView() throws IOException {
+		 FXMLLoader loader = new FXMLLoader(getClass().getResource("AreaGUI.fxml"));
+		 AnchorPane areaView = loader.load();
+		 areaScene = new Scene(areaView);
+		 AreaViewController controller = loader.getController();
+		 controller.setMainApp(this);
+		 primaryStage.setScene(areaScene);
+		 primaryStage.show();
+	 }
+	 public void showEditView() throws IOException {
+		 FXMLLoader loader = new FXMLLoader(getClass().getResource("EditGUI.fxml"));
+		 editStage = new Stage();
+		 AnchorPane editView = loader.load();
+		 editStage.setTitle("edit your recipe");
+		 EditViewController controller = loader.getController();
+		 controller.setMainApp(this);
+		 controller.showFirst();
+		 Scene scene = new Scene(editView);
+		 editStage.setScene(scene);
+		 editStage.show();
+		 
+	 }
+	 
+	 public Scene getSearchStage() {
+			return searchScene;
 		}
 	 public Stage getRecipeStage() {
 			return recipeStage;
 		}
 	 public static void main(String[] args) throws ClassNotFoundException, SQLException {
-	     testRecipe1 = createSuanLaFen();
-	     testRecipe2 = createGongBaoJiding();
-	     testcb = new CookBook("cookbook");
-	     testcb.addRecipe(testRecipe1);
-	     testcb.addRecipe(testRecipe2);
+	     
+		 testcb = new CookBook("cookbook");
+		 /*
+	     testcb.addRecipe(createSuanLaFen());
+	     testcb.addRecipe(createGongBaoJiding());
+	     testcb.addRecipe(createHongShaoRou());
+		*/
+	     
+	     
 		 launch(args);
+		 
 
 	    }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 public static CookBook getTestcb() {
+			return testcb;
+		}
+		public static void setTestcb(CookBook testcb) {
+			MainApp.testcb = testcb;
+		}
+		public static CookBookDB getTestdb() {
+			return testdb;
+		}
+		public static void setTestdb(CookBookDB testdb) {
+			MainApp.testdb = testdb;
+		}
+		/*
 	 private static Recipe createSuanLaFen() throws ClassNotFoundException, SQLException {
 			Recipe recipe = new Recipe("Suan La jiba", "Sichuan Dish", 2);		
 			
@@ -166,6 +227,33 @@ public class MainApp extends Application {
 			return recipe;
 		
 		}
+	 private static Recipe createHongShaoRou() throws ClassNotFoundException, SQLException {
+			Recipe recipe = new Recipe("Hong Shao Rou", "Hunan Dish", 4);		
+			
+			recipe.addIngredient(new Ingredient("pork belly", 0.5, "kg", "cut into 2cm pieces"));
+			recipe.addIngredient(new Ingredient("cooking oil", 2.0, "tablespoon"));
+			recipe.addIngredient(new Ingredient("brown sugar", 1.0, "tablespoon"));
+			recipe.addIngredient(new Ingredient("Shaoxin rice wine", 3.0, "tablespoon"));
+			recipe.addIngredient(new Ingredient("light soy sauce", 1.0, "tablespoon"));
+			recipe.addIngredient(new Ingredient("dark soy sauce", 0.5, "tablespoon"));
+			recipe.addIngredient(new Ingredient("chicken stock or water", 2.0, "cups"));
+			
+			recipe.addPreparationStep(new PreparationStep("Bring a pot of water to a boil and blanch the pork for a couple minutes."));
+			recipe.addPreparationStep(new PreparationStep("Take the pork out of the pot and set aside."));
+			recipe.addPreparationStep(new PreparationStep("Over low heat, add oil and sugar to your wok."));
+			recipe.addPreparationStep(new PreparationStep("Melt the sugar slightly and add the pork."));
+			recipe.addPreparationStep(new PreparationStep("Raise the heat to medium and cook until the pork is lightly browned."));
+			recipe.addPreparationStep(new PreparationStep("Turn the heat back down to low and add cooking wine, light soy sauce, dark soy sauce, and chicken stock."));
+			recipe.addPreparationStep(new PreparationStep("Cover and simmer for about 60 minutes to 90 minutes until pork is fork tender."));
+			recipe.addPreparationStep(new PreparationStep("Every 5-10 minutes, stir to prevent burning and add water if it gets too dry."));
+			recipe.addPreparationStep(new PreparationStep("Once the pork is fork tender, if there is still a lot of visible liquid, uncover the wok, turn up the heat, and stir continuously the sauce has reduced to a glistening coating."));
+			
+			recipe.setPreparationTime(5);
+			recipe.setCookingTime(100);
+			
+			return recipe;
+		} 
+		*/
 	}
 
 
