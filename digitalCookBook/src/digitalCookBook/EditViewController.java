@@ -28,6 +28,7 @@ public class EditViewController {
 	private int row = 0;
 	private int column = 0;
 	private Recipe recipe;
+	private List<Label> stepNoList = new ArrayList<Label>();
 	private List<TextField> stepList = new ArrayList<TextField>();
 	
 	@FXML
@@ -59,6 +60,11 @@ public class EditViewController {
     
     public void addNewStep() {
     	Label stepNo = new Label(Integer.toString(row+1));
+    	row++;
+    	stepNoList.add(stepNo);
+    	for(int i = 0; i<row; i++) {
+    		stepNoList.get(i).setText(Integer.toString(i+1));
+    	}
     	TextField emptyStep = new TextField();
     	Button delete = new Button("delete");
     	
@@ -66,15 +72,21 @@ public class EditViewController {
             @Override  
             public void handle(MouseEvent event) { 
             	stepPane.getChildren().remove(delete);
-            	stepPane.getChildren().remove(delete);
-            	
-            }  
+            	stepNoList.remove(stepNo);
+            	stepPane.getChildren().remove(stepNo);
+            	stepPane.getChildren().remove(emptyStep);
+            	row--;
+            	for(int i = 0; i<row; i++) {
+            		stepNoList.get(i).setText(Integer.toString(i+1));
+            	}
+            
+            }		
         }));  
         
     	stepPane.add(stepNo, column, row);
     	stepPane.add(emptyStep, column+1, row);
     	stepPane.add(delete, column+2, row);
-    	row++;
+    	
     	/*
     	GridPane grid = new GridPane();
     	Label stepNo = new Label(Integer.toString(++countStep));
