@@ -15,19 +15,26 @@
          </font></Label>
       <Label layoutX="70.0" layoutY="70.0" text="name of the recipe:" />
       <Label layoutX="70.0" layoutY="110.0" text="Description:" />
-      <Label layoutX="70.0" layoutY="150.0" text="Ingredient:" />
-      <TextField fx:id="recipeName" layoutX="220.0" layoutY="65.0" prefHeight="20.0" prefWidth="175.0" />
+      <Label layoutX="14.0" layoutY="167.0" text="Ingredient:" />
+      <TextField fx:id="recipeName" layoutX="263.0" layoutY="64.0" prefHeight="20.0" prefWidth="175.0" />
       <Label layoutX="227.0" layoutY="180.0" text="amount" />
       <Label layoutX="93.0" layoutY="180.0" text="material" />
       <Label layoutX="371.0" layoutY="180.0" text="unit" />
-      <TextField fx:id="description" layoutX="220.0" layoutY="115.0" prefHeight="30.0" prefWidth="518.0" />
-      <Button fx:id="saveRecipe" layoutX="499.0" layoutY="528.0" mnemonicParsing="false" onMouseClicked="#getStep" prefHeight="42.0" prefWidth="66.0" text="save" />
+      <TextField fx:id="description" layoutX="227.0" layoutY="104.0" prefHeight="30.0" prefWidth="518.0" />
+      <Button fx:id="saveRecipe" layoutX="499.0" layoutY="528.0" mnemonicParsing="false" onMouseClicked="#save" prefHeight="42.0" prefWidth="66.0" text="save" />
       <Button fx:id="cancel" layoutX="608.0" layoutY="528.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" text="cancel" />
-      <Button fx:id="addOneMoreStep" layoutX="70.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#addOneMoreStep" text="add one more step" />
+      <Button fx:id="addOneMoreStep" layoutX="70.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#addNewStep" text="add one more step" />
       <Label layoutX="70.0" layoutY="480.0" text="cookingtime:" />
       <Label layoutX="70.0" layoutY="520.0" text="preparationtime:" />
       <TextField fx:id="cookingTime" layoutX="211.0" layoutY="474.0" prefHeight="30.0" prefWidth="110.0" />
       <Button fx:id="deleteRecipe" layoutX="585.0" layoutY="41.0" mnemonicParsing="false" text="delete this recipe" textFill="#eb0505" />
       <ScrollPane fx:id="stepScroll" layoutX="70.0" layoutY="357.0" prefHeight="70.0" prefWidth="561.0" vbarPolicy="ALWAYS" />
+      <ScrollPane fx:id="ingScroll" layoutX="73.0" layoutY="206.0" prefHeight="101.0" prefWidth="561.0" />
+      <Button fx:id="addOneMoreIng" layoutX="73.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#addNewIng" text="add one more ing" />
+      <TextField fx:id="preparationTime" layoutX="209.0" layoutY="514.0" prefHeight="39.0" prefWidth="121.0" />
+      <Label layoutX="554.0" layoutY="150.0" text="Area: " />
+      <TextField fx:id="areaName" layoutX="615.0" layoutY="144.0" prefHeight="39.0" prefWidth="132.0" />
+      <Label layoutX="279.0" layoutY="150.0" text="Serve:" />
+      <TextField fx:id="serveAmount" layoutX="344.0" layoutY="144.0" prefHeight="39.0" prefWidth="86.0" />
    </children>
 </AnchorPane>

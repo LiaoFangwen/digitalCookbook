@@ -17,34 +17,48 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class EditViewController {
-	private int countStep = 0;
-	private VBox svb = new VBox();
-	private GridPane stepPane = new GridPane();
-	private int row = 0;
-	private int column = 0;
-	private Recipe recipe;
-	private List<Label> stepNoList = new ArrayList<Label>();
-	private List<TextField> stepList = new ArrayList<TextField>();
+	private Recipe recipe = new Recipe();
+	private GridPane gridi = new GridPane();
+	private GridPane grids = new GridPane();
+	private FlowPane ingFlow = new FlowPane();
+	private FlowPane stepFlow = new FlowPane();
+	private VBox vbi = new VBox();
+	private VBox vbs = new VBox();
+	private int row1 = 0;
+	private int row2 = 0;
+	private List<Ingredient> ingList = new ArrayList<Ingredient>();
+	private List<PreparationStep> stepList = new ArrayList<PreparationStep>();
 	
 	@FXML
 	private AnchorPane mainPane;
 	@FXML
 	private TextField recipeName;
 	@FXML
+	private TextField areaName;
+	@FXML
+	private TextField serveAmount;
+	@FXML
 	private Button saveRecipe;
 	@FXML
 	private Button cancel;
 	@FXML
+	private Button addOneMoreIng;
+	@FXML
 	private Button addOneMoreStep;
+	@FXML
+	private TextField preparationTime;
 	@FXML
 	private TextField cookingTime;
 	@FXML
 	private Button deleteRecipe;
+	@FXML
+	private ScrollPane ingScroll;
 	@FXML
 	private ScrollPane stepScroll;
 	@FXML
@@ -57,77 +71,87 @@ public class EditViewController {
     public EditViewController() {
     	
     }
-    
+    @FXML 
+    public void addNewIng() {
+    	TextField material = new TextField();
+    	TextField amount = new TextField();
+    	TextField unit = new TextField();
+    	Button delete = new Button("delete");
+    	delete.setOnMouseClicked((new EventHandler<MouseEvent>() {    
+            @Override  
+            public void handle(MouseEvent event) { 
+            	gridi.getChildren().remove(material);
+            	gridi.getChildren().remove(amount);
+            	gridi.getChildren().remove(unit);
+            	gridi.getChildren().remove(delete);
+            	row1--;            	            
+            }		
+        })); 
+    	gridi.add(material, 0, row1);
+    	gridi.add(amount, 1, row1);
+    	gridi.add(unit, 2, row1);
+    	gridi.add(delete, 3, row1);
+    	row1++;
+    }
+    @FXML
     public void addNewStep() {
-    	Label stepNo = new Label(Integer.toString(row+1));
-    	row++;
-    	stepNoList.add(stepNo);
-    	for(int i = 0; i<row; i++) {
-    		stepNoList.get(i).setText(Integer.toString(i+1));
-    	}
+    	Label stepNo = new Label("Step " + Integer.toString(row2+1) + ": ");
+    	
+    	vbs.getChildren().add(stepNo);
+    	
     	TextField emptyStep = new TextField();
     	Button delete = new Button("delete");
     	
     	delete.setOnMouseClicked((new EventHandler<MouseEvent>() {    
             @Override  
             public void handle(MouseEvent event) { 
-            	stepPane.getChildren().remove(delete);
-            	stepNoList.remove(stepNo);
-            	stepPane.getChildren().remove(stepNo);
-            	stepPane.getChildren().remove(emptyStep);
-            	row--;
-            	for(int i = 0; i<row; i++) {
-            		stepNoList.get(i).setText(Integer.toString(i+1));
-            	}
-            
+            	grids.getChildren().remove(emptyStep);
+            	grids.getChildren().remove(delete);
+            	vbs.getChildren().remove(row2-1);
+            	row2--;            	            
             }		
         }));  
         
-    	stepPane.add(stepNo, column, row);
-    	stepPane.add(emptyStep, column+1, row);
-    	stepPane.add(delete, column+2, row);
     	
-    	/*
-    	GridPane grid = new GridPane();
-    	Label stepNo = new Label(Integer.toString(++countStep));
-    	TextField emptyStep = new TextField();
-    	stepList.add(emptyStep);
-    	Button delete = new Button("delete");
-    	delete.setOnMouseClicked((new EventHandler<MouseEvent>() {    
-            @Override  
-            public void handle(MouseEvent event) { 
-            	svb.getChildren().remove(delete.getParent());
-            }  
-        }));  
-    	grid.add(stepNo, 0, 0);
-    	grid.add(emptyStep, 1, 0);
-    	grid.add(delete, 2, 0);
-		return grid;
-		*/
+    	grids.add(emptyStep, 0, row2);
+    	grids.add(delete, 1, row2);
+    	row2++;
     }
     public void showFirst() {
+    	addNewIng();
+    	ingScroll.setContent(gridi);
+    	stepFlow.getChildren().add(vbs);
+    	vbs.setSpacing(8);
+    	stepFlow.getChildren().add(grids);
     	addNewStep();
-    	stepScroll.setContent(stepPane);
+    	stepScroll.setContent(stepFlow);
     	/*
     	svb.getChildren().add(addNewStep());
     	stepScroll.setContent(svb);  	
     	*/
     }
-    @FXML 
-    public void addOneMoreStep() {
-    	addNewStep();
-    	//svb.getChildren().add(addNewStep());
-    }
     @FXML
-    public void getStep() throws ClassNotFoundException, SQLException {
-    	Iterator<TextField> stepIterator = stepList.iterator();
-    	while(stepIterator.hasNext()) {
-    		TextField field = stepIterator.next();
-    		String content = field.getText();
-    		recipe.addPreparationStep(new PreparationStep(content));
-    	}
-    	System.out.println(recipe.toString());
-    	
-    }
+	public void save() throws NumberFormatException, ClassNotFoundException, SQLException {
+		for(int i = 0; i<row1*4; i = i+4) {
+			TextField t1 = (TextField)gridi.getChildren().get(i);
+			TextField t2 = (TextField)gridi.getChildren().get(i+1);
+			TextField t3 = (TextField)gridi.getChildren().get(i+2);
+			ingList.add(new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
+			System.out.println(t1.getText());
+		}
+		for(int i = 0; i<row2*2; i = i+2) {
+			TextField t = (TextField)grids.getChildren().get(i);
+			stepList.add(new PreparationStep(t.getText()));
+		}
+		
+		recipe.setRecipeName(recipeName.getText());
+		recipe.setAreaName(areaName.getText());
+		recipe.setCookingTime(Long.parseLong(cookingTime.getText()));
+		recipe.setPreparationTime(Long.parseLong(preparationTime.getText()));
+		recipe.setServeAmount(Integer.parseInt(serveAmount.getText()));
+		recipe.setPreparationStep(stepList);
+		recipe.setRequiredIngredients(ingList);
+		CookBook.addRecipe(recipe);
+	}
 }
     
