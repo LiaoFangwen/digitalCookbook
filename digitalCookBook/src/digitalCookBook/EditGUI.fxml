@@ -22,19 +22,18 @@
       <Label layoutX="371.0" layoutY="180.0" text="unit" />
       <TextField fx:id="description" layoutX="227.0" layoutY="104.0" prefHeight="30.0" prefWidth="518.0" />
       <Button fx:id="saveRecipe" layoutX="499.0" layoutY="528.0" mnemonicParsing="false" onMouseClicked="#save" prefHeight="42.0" prefWidth="66.0" text="save" />
-      <Button fx:id="cancel" layoutX="608.0" layoutY="528.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" text="cancel" />
-      <Button fx:id="addOneMoreStep" layoutX="70.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#addNewStep" text="add one more step" />
+      <Button fx:id="cancel" layoutX="608.0" layoutY="528.0" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="42.0" prefWidth="73.0" text="cancel" />
       <Label layoutX="70.0" layoutY="480.0" text="cookingtime:" />
       <Label layoutX="70.0" layoutY="520.0" text="preparationtime:" />
       <TextField fx:id="cookingTime" layoutX="211.0" layoutY="474.0" prefHeight="30.0" prefWidth="110.0" />
       <Button fx:id="deleteRecipe" layoutX="585.0" layoutY="41.0" mnemonicParsing="false" text="delete this recipe" textFill="#eb0505" />
       <ScrollPane fx:id="stepScroll" layoutX="70.0" layoutY="357.0" prefHeight="70.0" prefWidth="561.0" vbarPolicy="ALWAYS" />
       <ScrollPane fx:id="ingScroll" layoutX="73.0" layoutY="206.0" prefHeight="101.0" prefWidth="561.0" />
-      <Button fx:id="addOneMoreIng" layoutX="73.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#addNewIng" text="add one more ing" />
       <TextField fx:id="preparationTime" layoutX="209.0" layoutY="514.0" prefHeight="39.0" prefWidth="121.0" />
       <Label layoutX="554.0" layoutY="150.0" text="Area: " />
       <TextField fx:id="areaName" layoutX="615.0" layoutY="144.0" prefHeight="39.0" prefWidth="132.0" />
       <Label layoutX="279.0" layoutY="150.0" text="Serve:" />
       <TextField fx:id="serveAmount" layoutX="344.0" layoutY="144.0" prefHeight="39.0" prefWidth="86.0" />
+      <Label fx:id="backLabel" layoutX="14.0" layoutY="39.0" onMouseClicked="#backToMain" text="back" />
    </children>
 </AnchorPane>

@@ -163,6 +163,7 @@ public class RecipeViewController {
 		cancelBtn.setVisible(true);
 		arf.setVisible(true);
 		saf.setVisible(true);
+		rnf.requestFocus();
 		gridE1.getColumnConstraints().add(new ColumnConstraints(200));
 		gridE1.getColumnConstraints().add(new ColumnConstraints(100));
 		gridE1.getColumnConstraints().add(new ColumnConstraints(100));
@@ -170,12 +171,12 @@ public class RecipeViewController {
 		gridE2.getColumnConstraints().add(new ColumnConstraints(50));
 		gridE2.getColumnConstraints().add(new ColumnConstraints(400));
 		gridE2.getColumnConstraints().add(new ColumnConstraints(50));
-		editIng();
-		editStep();
+		editIng(0);
+		editStep(0);
 		ingredientPane.setContent(gridE1);
 		stepPane.setContent(gridE2);	
 	}
-	public void editIng() {
+	public void editIng(int focus) {
 		gridE1.getChildren().clear();
 		rowE1 = 0;
 		Iterator<Ingredient> iterator1 = ingE.iterator();
@@ -202,7 +203,7 @@ public class RecipeViewController {
 	        			ingE.set(i, new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
 	        		}
 	            	ingE.remove(index);
-	            	editIng();
+	            	editIng(index);
 	            }	            	
 	        }));
 			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    
@@ -215,13 +216,15 @@ public class RecipeViewController {
 	        			ingE.set(i, new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
 	        		}
 	            	ingE.add(index+1, new Ingredient("", 0, ""));
-	            	editIng();	
+	            	editIng(index+1);	
 	            }	            	
 	        }));  
+			
 			rowE1++;	
 		}
+		gridE1.getChildren().get(focus*5).requestFocus();
 	}
-	public void editStep() {
+	public void editStep(int focus) {
 		gridE2.getChildren().clear();
 		rowE2 = 0;
 		Iterator<PreparationStep> iterator2 = stepE.iterator();
@@ -244,7 +247,7 @@ public class RecipeViewController {
 	        			stepE.set(i, new PreparationStep(t.getText()));
 	        		}
 	            	stepE.remove(index);
-	            	editStep();
+	            	editStep(index);
 	            }	            	
 	        }));
 			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    
@@ -255,11 +258,12 @@ public class RecipeViewController {
 	        			stepE.set(i, new PreparationStep(t.getText()));
 	        		}
 	            	stepE.add(index+1, new PreparationStep(""));
-	            	editStep();	
+	            	editStep(index+1);	
 	            }	            	
 	        }));  
 		rowE2++;
 		}
+		gridE2.getChildren().get(focus*4+1).requestFocus();
 	}
 	@FXML
 	public void cancel() {

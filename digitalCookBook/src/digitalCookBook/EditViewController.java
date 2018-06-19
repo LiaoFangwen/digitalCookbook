@@ -21,19 +21,18 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class EditViewController {
 	private Recipe recipe = new Recipe();
 	private GridPane gridi = new GridPane();
 	private GridPane grids = new GridPane();
-	private FlowPane ingFlow = new FlowPane();
-	private FlowPane stepFlow = new FlowPane();
-	private VBox vbi = new VBox();
-	private VBox vbs = new VBox();
 	private int row1 = 0;
 	private int row2 = 0;
 	private List<Ingredient> ingList = new ArrayList<Ingredient>();
 	private List<PreparationStep> stepList = new ArrayList<PreparationStep>();
+	private List<Ingredient> ingS = new ArrayList<Ingredient>();
+	private List<PreparationStep> stepS = new ArrayList<PreparationStep>();
 	
 	@FXML
 	private AnchorPane mainPane;
@@ -48,10 +47,6 @@ public class EditViewController {
 	@FXML
 	private Button cancel;
 	@FXML
-	private Button addOneMoreIng;
-	@FXML
-	private Button addOneMoreStep;
-	@FXML
 	private TextField preparationTime;
 	@FXML
 	private TextField cookingTime;
@@ -62,17 +57,70 @@ public class EditViewController {
 	@FXML
 	private ScrollPane stepScroll;
 	@FXML
+	private Label backLabel;
+	@FXML
 	private MainApp mainApp;
 	
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 	}
+	@FXML
+    public void backToMain() {
+    	mainApp.getEditStage().close();
+    }
 	
     public EditViewController() {
     	
     }
-    @FXML 
-    public void addNewIng() {
+    public void addNewIng(int focus) {
+    	gridi.getChildren().clear();
+    	Iterator<Ingredient> iterator1 = ingList.iterator();
+    	row1 = 0;
+		while(iterator1.hasNext()) {	
+			Ingredient ingredient = iterator1.next();
+			TextField materialName = new TextField(ingredient.getIngredientName());
+			TextField amount = new TextField((Double.toString(ingredient.getQuantity())));
+			TextField unit = new TextField(ingredient.getUnit());
+			Button deleteE = new Button("Delete");
+			Button addS = new Button("Add");
+			gridi.add(materialName, 0, row1);
+			gridi.add(amount, 1, row1);
+			gridi.add(unit, 2, row1);
+			gridi.add(deleteE, 3, row1);
+			gridi.add(addS, 4, row1);
+			int index = gridi.getRowIndex(deleteE);
+			deleteE.setOnMouseClicked((new EventHandler<MouseEvent>() {    
+		            @Override  
+		            public void handle(MouseEvent event) { 	            	
+		            	for(int i = 0; i<row1; i++) {
+		        			TextField t1 = (TextField)gridi.getChildren().get(i*5);
+		        			TextField t2 = (TextField)gridi.getChildren().get(i*5+1);
+		        			TextField t3 = (TextField)gridi.getChildren().get(i*5+2);
+		        			ingList.set(i, new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
+		        		}
+		            	ingList.remove(index);
+		            	addNewIng(index);
+		            }	            	
+		        }));
+    	
+		
+			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    
+	            @Override  
+	            public void handle(MouseEvent event) {
+	            	for(int i = 0; i<row1; i++) {
+	        			TextField t1 = (TextField)gridi.getChildren().get(i*5);
+	        			TextField t2 = (TextField)gridi.getChildren().get(i*5+1);
+	        			TextField t3 = (TextField)gridi.getChildren().get(i*5+2);
+	        			ingList.set(i, new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
+	        		}
+	            	ingList.add(index+1, new Ingredient("", 0, ""));
+	            	addNewIng(index+1);
+	            }	            	
+	        }));  
+			row1++;	
+		}
+		gridi.getChildren().get(focus*5).requestFocus();
+    	/*
     	TextField material = new TextField();
     	TextField amount = new TextField();
     	TextField unit = new TextField();
@@ -92,9 +140,50 @@ public class EditViewController {
     	gridi.add(unit, 2, row1);
     	gridi.add(delete, 3, row1);
     	row1++;
+    	*/
     }
-    @FXML
-    public void addNewStep() {
+    
+    public void addNewStep(int focus) {
+    	grids.getChildren().clear();
+		row2 = 0;
+		Iterator<PreparationStep> iterator2 = stepList.iterator();
+		while(iterator2.hasNext()) {			
+			PreparationStep step = iterator2.next();
+			Text stepNoE = new Text(Integer.toString(row2+1));
+			TextField contentE = new TextField(step.getContent());
+			Button deleteE = new Button("Delete");
+			Button addS = new Button("Add");
+			grids.add(stepNoE, 0, row2);
+			grids.add(contentE, 1, row2);
+			grids.add(deleteE, 2, row2);
+			grids.add(addS, 3, row2);
+			int index = grids.getRowIndex(deleteE);
+			deleteE.setOnMouseClicked((new EventHandler<MouseEvent>() {    
+	            @Override  
+	            public void handle(MouseEvent event) { 	            	
+	            	for(int i = 0; i<row2; i++) {
+	        			TextField t = (TextField)grids.getChildren().get(i*4+1);
+	        			stepList.set(i, new PreparationStep(t.getText()));
+	        		}
+	            	stepList.remove(index);
+	            	addNewStep(index);
+	            }	            	
+	        }));
+			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    
+	            @Override  
+	            public void handle(MouseEvent event) {
+	            	for(int i = 0; i<row2; i++) {
+	        			TextField t = (TextField)grids.getChildren().get(i*4+1);
+	        			stepList.set(i, new PreparationStep(t.getText()));
+	        		}
+	            	stepList.add(index+1, new PreparationStep(""));
+	            	addNewStep(index+1);	
+	            }	            	
+	        }));  
+		row2++;
+		}
+		grids.getChildren().get(focus*4+1).requestFocus();
+    	/*
     	Label stepNo = new Label("Step " + Integer.toString(row2+1) + ": ");
     	
     	vbs.getChildren().add(stepNo);
@@ -116,42 +205,43 @@ public class EditViewController {
     	grids.add(emptyStep, 0, row2);
     	grids.add(delete, 1, row2);
     	row2++;
+    	*/
     }
     public void showFirst() {
-    	addNewIng();
+    	recipeName.requestFocus();
+    	ingList.add(new Ingredient("", 0, ""));
+    	addNewIng(0);
     	ingScroll.setContent(gridi);
-    	stepFlow.getChildren().add(vbs);
-    	vbs.setSpacing(8);
-    	stepFlow.getChildren().add(grids);
-    	addNewStep();
-    	stepScroll.setContent(stepFlow);
-    	/*
-    	svb.getChildren().add(addNewStep());
-    	stepScroll.setContent(svb);  	
-    	*/
+    	stepList.add(new PreparationStep(""));
+    	addNewStep(0);
+    	stepScroll.setContent(grids);
     }
     @FXML
 	public void save() throws NumberFormatException, ClassNotFoundException, SQLException {
-		for(int i = 0; i<row1*4; i = i+4) {
+		for(int i = 0; i<row1*5; i = i+5) {
 			TextField t1 = (TextField)gridi.getChildren().get(i);
 			TextField t2 = (TextField)gridi.getChildren().get(i+1);
 			TextField t3 = (TextField)gridi.getChildren().get(i+2);
-			ingList.add(new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
-			System.out.println(t1.getText());
+			ingS.add(new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
 		}
-		for(int i = 0; i<row2*2; i = i+2) {
-			TextField t = (TextField)grids.getChildren().get(i);
-			stepList.add(new PreparationStep(t.getText()));
+		for(int i = 0; i<row2*4; i = i+4) {
+			TextField t = (TextField)grids.getChildren().get(i+1);
+			stepS.add(new PreparationStep(t.getText()));
 		}
-		
 		recipe.setRecipeName(recipeName.getText());
 		recipe.setAreaName(areaName.getText());
 		recipe.setCookingTime(Long.parseLong(cookingTime.getText()));
 		recipe.setPreparationTime(Long.parseLong(preparationTime.getText()));
 		recipe.setServeAmount(Integer.parseInt(serveAmount.getText()));
-		recipe.setPreparationStep(stepList);
-		recipe.setRequiredIngredients(ingList);
+		recipe.setPreparationStep(stepS);
+		recipe.setRequiredIngredients(ingS);
 		CookBook.addRecipe(recipe);
 	}
+    @FXML
+    public void cancel() {
+    	ingList.clear();
+    	stepList.clear();
+    	showFirst();
+    }
 }
     

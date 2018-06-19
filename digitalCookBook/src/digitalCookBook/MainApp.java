@@ -21,7 +21,13 @@ public class MainApp extends Application {
 	private Scene areaScene;
 	private Stage editStage;
  
-    public Scene getAreaScene() {
+    public Stage getEditStage() {
+		return editStage;
+	}
+	public void setEditStage(Stage editStage) {
+		this.editStage = editStage;
+	}
+	public Scene getAreaScene() {
 		return areaScene;
 	}
 	public void setAreaScene(Scene areaScene) {
