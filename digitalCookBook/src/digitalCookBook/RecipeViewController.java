@@ -206,7 +206,7 @@ public class RecipeViewController {
 	        			ingE.set(i, new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
 	        		}
 	            	ingE.remove(index);
-	            	editIng(index);
+	            	editIng(index-1);
 	            }	            	
 	        }));
 			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    
@@ -250,7 +250,7 @@ public class RecipeViewController {
 	        			stepE.set(i, new PreparationStep(t.getText()));
 	        		}
 	            	stepE.remove(index);
-	            	editStep(index);
+	            	editStep(index-1);
 	            }	            	
 	        }));
 			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    

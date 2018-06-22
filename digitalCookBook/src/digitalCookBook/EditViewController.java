@@ -99,7 +99,7 @@ public class EditViewController {
 		        			ingList.set(i, new Ingredient(t1.getText(), Double.parseDouble(t2.getText()), t3.getText()));
 		        		}
 		            	ingList.remove(index);
-		            	addNewIng(index);
+		            	addNewIng(index-1);
 		            }	            	
 		        }));
     	
@@ -166,7 +166,7 @@ public class EditViewController {
 	        			stepList.set(i, new PreparationStep(t.getText()));
 	        		}
 	            	stepList.remove(index);
-	            	addNewStep(index);
+	            	addNewStep(index-1);
 	            }	            	
 	        }));
 			addS.setOnMouseClicked((new EventHandler<MouseEvent>() {    
