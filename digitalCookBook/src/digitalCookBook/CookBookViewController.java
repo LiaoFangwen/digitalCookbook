@@ -2,15 +2,14 @@ package digitalCookBook;
 
 import java.io.IOException;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class CookBookViewController {
 	public static String searchString;
@@ -59,6 +58,24 @@ public class CookBookViewController {
 	public void showEdit() throws IOException {
 		mainApp.showEditView();
 	}
+    @FXML
+    public void setEnterAction() {
+    	searchField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+						showSearchResult();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+            }
+        });
+    }
     
 }
 

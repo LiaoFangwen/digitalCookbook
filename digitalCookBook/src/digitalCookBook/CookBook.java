@@ -15,10 +15,12 @@ public class CookBook {
 	private static Map<Long, Recipe> recipeBook;
 
 	private static Map<String, Area> areas;
-	
-	public CookBook(){
-	}
-
+	/**
+	 * Class constructor specifying the name of the cook book. All detailed information of recipes and areas are set to the cook book.
+	 * @param name the cook book name
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public CookBook(String name) throws ClassNotFoundException, SQLException {
 
 		this.cbName = name;
@@ -30,24 +32,12 @@ public class CookBook {
 		CookBookDB.getConnection();
 
 	}
-
-	public void displayCookBookName() {
-
-		System.out.println("This is " + cbName + "!");
-
-	}
-
 	/**
-	 * 
-	 * add a new recipe to a cook book
-	 * 
-	 * @param recipe
-	 *            the recipe to add
-	 * @throws SQLException
+	 * Add a new recipe to the cook book and DB.
+	 * @param recipe the recipe to add
 	 * @throws ClassNotFoundException
-	 * 
+	 * @throws SQLException
 	 */
-
 	public static void addRecipe(Recipe recipe) throws ClassNotFoundException, SQLException {
 		CookBook.createNewArea(recipe.getAreaName());
 		CookBookDB.addRecipeDB(recipe);
@@ -73,18 +63,11 @@ public class CookBook {
 		searchArea(areaName).addRecipe(recipe);
 
 	}
-
 	/**
-	 * 
-	 * search recipe by its keyword
-	 * 
-	 * @param name
-	 *            the name for search
-	 * 
-	 * @return the searched recipe
-	 * 
+	 * Search a recipe by its name, includes key words searching.
+	 * @param name the words that may be contained in a recipe name
+	 * @return a list of recipes that have the key words in their name
 	 */
-
 	public static List<Recipe> searchRecipeByKeyword(String name) {
 		List<Recipe> searchedRecipeList = new ArrayList<Recipe>();
 		String newName = name.replaceAll(" ", "");
@@ -103,12 +86,10 @@ public class CookBook {
 		}
 		return searchedRecipeList;
 	}
-
 	/**
-	 * get recipe by its real name(probably has the depulicated name)
-	 * 
-	 * @param name
-	 * @return
+	 * Get a recipe by its id, which is unique even when there exist other recipes with the same name. 
+	 * @param id the id of the recipe
+	 * @return the exact recipe with the unique id
 	 */
 	public static Recipe getRecipeByID(long id) {
 		Iterator<Entry<Long, Recipe>> recipeBookIt = recipeBook.entrySet().iterator();
@@ -121,16 +102,10 @@ public class CookBook {
 		}
 		return recipe;
 	}
-
 	/**
-	 * 
-	 * search recipes by area and print the list of results
-	 * 
-	 * @param areaName
-	 *            the area name for search
-	 * 
+	 *  Search recipes by an area. The name of the recipes will be printed out.
+	 * @param areaName the area to search
 	 */
-
 	public static void getRecipeByArea(String areaName) {
 
 		Area area = searchArea(areaName);
@@ -144,18 +119,12 @@ public class CookBook {
 			System.out.println(recipeBook.get(iterator.next()).getRecipeName());
 
 	}
-
 	/**
-	 * 
-	 * delete a recipe from the cook book
-	 * 
-	 * @param recipe
-	 *            the recipe for delete
-	 * @throws SQLException
+	 * Delete a recipe from the cook book and DB.
+	 * @param recipe the recipe to delete
 	 * @throws ClassNotFoundException
-	 * 
+	 * @throws SQLException
 	 */
-
 	public static void deleteRecipe(Recipe recipe) throws ClassNotFoundException, SQLException {
 
 		searchArea(recipe.getAreaName()).getAreaRecipe().remove(recipe.getIdRecipe());
@@ -166,21 +135,13 @@ public class CookBook {
 
 		recipe = null;
 
-		//System.out.println("Recipe deleted!");
-
 	}
-
 	/**
-	 * 
-	 * delete a area from the cook book
-	 * 
-	 * @param area
-	 *            the area for delete
-	 * @throws SQLException
+	 * Delete an area from the cook book and DB. The area of the recipes belong to it will be changed to "Unknown".
+	 * @param areaName the area to delete
 	 * @throws ClassNotFoundException
-	 * 
+	 * @throws SQLException
 	 */
-
 	public static void deleteArea(String areaName) throws ClassNotFoundException, SQLException {
 
 		Area area = areas.get(areaName);
@@ -202,80 +163,32 @@ public class CookBook {
 		System.out.println("Area deleted!");
 
 	}
-
 	/**
-	 * 
-	 * change the area of a recipe
-	 * 
-	 * @param recipe
-	 *            the recipe for change
-	 * 
-	 * @param newName
-	 *            the new name of the desired area
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * 
+	 * Search the area by its name.
+	 * @param searchName the name to search
+	 * @return the area with the name
 	 */
-
-	/**
-	
-
-		Area area = searchArea(recipe.getAreaName());
-
-		area.getAreaRecipe().remove(recipe.getRecipeName());
-
-		createNewArea(newName);
-
-		searchArea(newName).addRecipe(recipe);
-
-	}
-*/
-	/**
-	 * 
-	 * search the area by its name
-	 * 
-	 * @param searchName
-	 *            the area name for search
-	 * 
-	 * @return the searched area
-	 * 
-	 */
-
 	public static Area searchArea(String searchName) {
 
 		return areas.get(searchName);
 
 	}
-
 	/**
-	 * 
-	 * determine whether an area exists
-	 * 
-	 * @param newAreaName
-	 *            the area name for determine
-	 * 
-	 * @return whether the area exists
-	 * 
+	 * Determine whether a area exists.
+	 * @param newAreaName the area name to find
+	 * @return whether this area exists
 	 */
-
 	public static boolean areaExists(String newAreaName) {
 
 		return areas.containsKey(newAreaName);
 
 	}
-
 	/**
-	 * 
-	 * create a new area for the cook book, if the area already exists, then nothing
-	 * happens
-	 * 
-	 * @param newAreaName
-	 *            the area for create
-	 * @throws SQLException
+	 * Create a new area in the cook book and in the DB. If the area already exists, then nothing happens.
+	 * @param newAreaName the area name to create
 	 * @throws ClassNotFoundException
-	 * 
+	 * @throws SQLException
 	 */
-
 	public static void createNewArea(String newAreaName) throws ClassNotFoundException, SQLException {
 
 		if (!areaExists(newAreaName)) {
@@ -288,7 +201,13 @@ public class CookBook {
 
 		}
 	}
-
+	/**
+	 * Update the information of a recipe in the cook book and DB.
+	 * @param recipeOld the old recipe
+	 * @param recipeNew the changed recipe
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void editRecipe(Recipe recipeOld,Recipe recipeNew) throws ClassNotFoundException, SQLException {
 		searchArea(recipeNew.getAreaName()).addRecipe(recipeNew);
 

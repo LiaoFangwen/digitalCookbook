@@ -21,7 +21,7 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="searchField" layoutX="50.0" layoutY="342.0" onKeyTyped="#showSearchResult" prefHeight="39.0" prefWidth="626.0" promptText="Type in name" />
+            <TextField fx:id="searchField" layoutX="50.0" layoutY="342.0" prefHeight="39.0" prefWidth="626.0" promptText="Type in name" />
             <Label fx:id="addLabel" layoutX="198.0" layoutY="467.0" onMouseClicked="#showEdit" text="Add a recipe" />
             <Button fx:id="searchBtn" layoutX="687.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#showSearchResult" text="search" textFill="#a1e1aa">
                <font>

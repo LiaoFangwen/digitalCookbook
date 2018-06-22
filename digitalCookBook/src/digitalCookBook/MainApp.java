@@ -57,6 +57,7 @@ public class MainApp extends Application {
 	        AnchorPane cbView = (AnchorPane) loader.load();	       
 	        CookBookViewController controller = loader.getController();
 	        controller.setMainApp(this);
+	        controller.setEnterAction();
 	        Scene scene = new Scene(cbView);
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
@@ -71,6 +72,7 @@ public class MainApp extends Application {
 	    	
 	    	AnchorPane searchView = loader.load();
 	    	searchScene = new Scene(searchView);
+	    	searchScene.getStylesheets().add(getClass().getResource("SearchStyle.css").toExternalForm());
 	    	//searchStage.setTitle("Search Rusults");
 	    	
 	    	//searchGUI.initModality(Modality.WINDOW_MODAL);
@@ -81,6 +83,7 @@ public class MainApp extends Application {
 	        controller.setSearchField1(CookBookViewController.searchString);
 	        controller.setSearchString(CookBookViewController.searchString);
 	        controller.showRecipe();
+	        
 	        
 	    	//Scene scene = new Scene(searchView);
 	    	primaryStage.setScene(searchScene);
