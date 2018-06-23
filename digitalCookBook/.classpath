@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.11.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Liao/Downloads/GMapsFX-master.zip"/>
 	<classpathentry kind="lib" path="C:/Program Files/JUnit/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/JUnit/hamcrest-junit-2.0.0.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

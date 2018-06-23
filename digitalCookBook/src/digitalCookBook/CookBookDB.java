@@ -109,6 +109,7 @@ public class CookBookDB {
 			PreparationStep step = new PreparationStep();
 			step.setRecipeID((long) set.getObject("recipe_id"));
 			step.setContent(set.getString("step"));
+			step.setIndex(set.getInt("stepNo"));
 			preparationList.add(step);
 		}
 		return preparationList;
@@ -147,15 +148,28 @@ public class CookBookDB {
 
 			recipe.setRequiredIngredients(ingredientRecipe);
 
+			List<PreparationStep> preparationStep1 = new ArrayList<PreparationStep>();
 			List<PreparationStep> preparationStep = new ArrayList<PreparationStep>();
 			List<PreparationStep> stepAll = preparationList();
 			Iterator<PreparationStep> iteratorforStep = stepAll.iterator();
 			while (iteratorforStep.hasNext()) {
 				PreparationStep step = iteratorforStep.next();
 				if (step.getRecipeID() == (long) set.getObject("recipe_id")) {
-					preparationStep.add(step);
+					preparationStep1.add(step);
 				}
 			}
+			//int i = 0;
+			int j = preparationStep1.size();
+			for(int i = 0; i<j; i++) {
+				Iterator<PreparationStep> iterator = preparationStep1.iterator();
+				while(iterator.hasNext()) {
+					PreparationStep step = iterator.next();
+					if (step.getIndex() == i) {
+						preparationStep.add(step);
+					}
+				}
+			}
+			
 
 			recipe.setPreparationStep(preparationStep);
 
@@ -297,10 +311,11 @@ public class CookBookDB {
 	 */
 	public static void addPreparationDB(PreparationStep step) throws ClassNotFoundException, SQLException {
 		Connection con = getConnection();
-		String sql = "insert into preparation_step(recipe_id,step) values (?,?)";
+		String sql = "insert into preparation_step(recipe_id,step,stepNo) values (?,?,?)";
 		PreparedStatement preparationStatement = con.prepareStatement(sql);
 		preparationStatement.setLong(1, step.getRecipeID());
 		preparationStatement.setString(2, step.getContent());
+		preparationStatement.setInt(3, step.getIndex());
 		preparationStatement.executeUpdate();
 	}
 	/**

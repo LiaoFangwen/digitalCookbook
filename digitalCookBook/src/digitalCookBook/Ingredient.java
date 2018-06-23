@@ -1,10 +1,9 @@
 package digitalCookBook;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Ingredient {
-
-	// private int ingredientID;
-
-	// private static int defaultID = 1;
-
 	private long recipeID;
 
 	private String ingredientName;
@@ -53,21 +52,7 @@ public class Ingredient {
 	public void setRecipeID(long recipeid) {
 		this.recipeID = recipeid;
 	}
-
-	/*
-	 * public int getIdIngredient() {
-	 * 
-	 * return ingredientID;
-	 * 
-	 * }
-	 * 
-	 * public void setIdIngredient(int idIngredient) {
-	 * 
-	 * this.ingredientID = idIngredient;
-	 * 
-	 * }
-	 */
-
+	
 	public String getIngredientName() {
 
 		return ingredientName;
@@ -129,9 +114,23 @@ public class Ingredient {
 	}
 
 	public void setTotalAmount() {
+		String newName = this.ingredientName.replaceAll(" ", "");
+		Pattern pattern = Pattern.compile(newName,Pattern.CASE_INSENSITIVE);
+		Matcher matcherWater = pattern.matcher("water");
+		Matcher matcherSauce = pattern.matcher("sauce");
+		Matcher matcherOil = pattern.matcher("oil");
+		Matcher matcherWine = pattern.matcher("wine");
+		Matcher matcherBeer = pattern.matcher("beer");
+		Matcher matcherVinegar = pattern.matcher("vinegar");
+		Matcher matcherStock = pattern.matcher("stock");
 
+		if(matcherWater.find()||matcherSauce.find()||matcherOil.find()||matcherWine.find()||matcherBeer.find()||matcherVinegar.find()||matcherStock.find()) {
+		newAmount = (quantity/2.0)*0.7;
+		}
 		newAmount = (quantity / 2.0) * serveAmount;
 
+		//newAmount = (quantity / 2.0) * serveAmount;
+		
 	}
 
 	public double getTotalAmount() {

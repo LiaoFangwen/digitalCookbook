@@ -17,6 +17,8 @@ public class Recipe {
 	private long preparationTime;
 
 	private String areaName;
+	
+	private int stepIndex;
 
 	// private Area area;
 
@@ -28,7 +30,7 @@ public class Recipe {
 		// TODO Auto-generated constructor stub
 	}
 
-	Recipe(String nameRe, String areaName, int serveAmount) throws ClassNotFoundException, SQLException {
+	Recipe(String nameRe, String areaName, int serveAmount) {
 
 		this.recipeName = nameRe;
 
@@ -96,7 +98,7 @@ public class Recipe {
 
 	}
 
-	public void setCookingTime(long cookingTime) throws ClassNotFoundException, SQLException {
+	public void setCookingTime(long cookingTime) {
 
 		this.cookingTime = cookingTime;
 
@@ -108,25 +110,11 @@ public class Recipe {
 
 	}
 
-	public void setPreparationTime(long preparationTime) throws ClassNotFoundException, SQLException {
+	public void setPreparationTime(long preparationTime) {
 
 		this.preparationTime = preparationTime;
 
 	}
-
-	/*
-	 * public Area getArea() {
-	 * 
-	 * return area;
-	 * 
-	 * }
-	 * 
-	 * public void setArea(Area area) {
-	 * 
-	 * this.area = area;
-	 * 
-	 * }
-	 */
 
 	public List<PreparationStep> getPreparationSteps() {
 
@@ -140,13 +128,13 @@ public class Recipe {
 
 	}
 
-	public void addPreparationStep(int index, PreparationStep step) throws ClassNotFoundException, SQLException {
+	public void addPreparationStep(int index, PreparationStep step) {
 
 		preparationSteps.add(index, step);
 
 	}
 
-	public void addPreparationStep(PreparationStep step) throws ClassNotFoundException, SQLException {
+	public void addPreparationStep(PreparationStep step) {
 
 		preparationSteps.add(step);
 
@@ -198,7 +186,7 @@ public class Recipe {
 
 	}
 
-	public void addIngredient(Ingredient ingredient) throws ClassNotFoundException, SQLException {
+	public void addIngredient(Ingredient ingredient) {
 
 		requiredIngredients.add(ingredient);
 
@@ -206,8 +194,6 @@ public class Recipe {
 	}
 
 	public void deleteIngredients(String ingredient) throws ClassNotFoundException, SQLException {
-		
-		//List<Ingredient> deletedIngredient = new ArrayList<Ingredient>();
 
 		int size = requiredIngredients.size();
 
@@ -262,7 +248,23 @@ public class Recipe {
 	}
 
 	public String toString() {
-
+		int length = this.getRequiredIngredients().size();
+		String ing = "";
+		if(length <= 5) {
+			for(int i = 0; i<4; i++) {
+				ing = ing + this.getRequiredIngredients().get(i).getIngredientName() + ", ";
+			}
+			ing = ing + this.getRequiredIngredients().get(4).getIngredientName();
+			return ing;
+			
+		} else {
+			for(int j = 0; j<5; j++) {
+				ing = ing + this.getRequiredIngredients().get(j).getIngredientName() + ", ";
+			}
+			ing = ing + this.getRequiredIngredients().get(5).getIngredientName() + "...";
+			return ing;	
+		}
+		/*
 		this.setIngredientAmount();
 
 		String descriptRe = "";
@@ -307,7 +309,7 @@ public class Recipe {
 				+ "preparationTime: " + this.preparationTime + "\n" + "cookingTime: " + this.cookingTime;
 
 		return descriptRe;
-
+	*/
 	}
 
 }

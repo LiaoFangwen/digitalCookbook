@@ -120,27 +120,6 @@ public class EditViewController {
 			row1++;	
 		}
 		gridi.getChildren().get(focus*5).requestFocus();
-    	/*
-    	TextField material = new TextField();
-    	TextField amount = new TextField();
-    	TextField unit = new TextField();
-    	Button delete = new Button("delete");
-    	delete.setOnMouseClicked((new EventHandler<MouseEvent>() {    
-            @Override  
-            public void handle(MouseEvent event) { 
-            	gridi.getChildren().remove(material);
-            	gridi.getChildren().remove(amount);
-            	gridi.getChildren().remove(unit);
-            	gridi.getChildren().remove(delete);
-            	row1--;            	            
-            }		
-        })); 
-    	gridi.add(material, 0, row1);
-    	gridi.add(amount, 1, row1);
-    	gridi.add(unit, 2, row1);
-    	gridi.add(delete, 3, row1);
-    	row1++;
-    	*/
     }
     
     public void addNewStep(int focus) {
@@ -183,29 +162,6 @@ public class EditViewController {
 		row2++;
 		}
 		grids.getChildren().get(focus*4+1).requestFocus();
-    	/*
-    	Label stepNo = new Label("Step " + Integer.toString(row2+1) + ": ");
-    	
-    	vbs.getChildren().add(stepNo);
-    	
-    	TextField emptyStep = new TextField();
-    	Button delete = new Button("delete");
-    	
-    	delete.setOnMouseClicked((new EventHandler<MouseEvent>() {    
-            @Override  
-            public void handle(MouseEvent event) { 
-            	grids.getChildren().remove(emptyStep);
-            	grids.getChildren().remove(delete);
-            	vbs.getChildren().remove(row2-1);
-            	row2--;            	            
-            }		
-        }));  
-        
-    	
-    	grids.add(emptyStep, 0, row2);
-    	grids.add(delete, 1, row2);
-    	row2++;
-    	*/
     }
     public void showFirst() {
     	recipeName.requestFocus();

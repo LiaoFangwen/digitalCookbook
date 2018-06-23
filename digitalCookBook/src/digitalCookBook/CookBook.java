@@ -43,10 +43,12 @@ public class CookBook {
 		CookBookDB.addRecipeDB(recipe);
 		CookBookDB.updateCookingTime(recipe, recipe.getCookingTime());
 		CookBookDB.updatePreparationTime(recipe, recipe.getPreparationTime());
-		
+		int stepIndex = 0;
 		Iterator<PreparationStep> iteratorStep = recipe.getPreparationSteps().iterator();
 		while(iteratorStep.hasNext()) {
 		PreparationStep pre = iteratorStep.next();
+		pre.setIndex(stepIndex);
+		stepIndex++;
 		pre.setRecipeID(recipe.getIdRecipe());
 		CookBookDB.addPreparationDB(pre);
 		}

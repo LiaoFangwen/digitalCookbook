@@ -1,24 +1,19 @@
 package digitalCookBook;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class RecipeViewController {
@@ -83,7 +78,8 @@ public class RecipeViewController {
         this.mainApp = mainApp;
 	}
 	public void setInformation(Recipe recipe) {
-		this.recipe = recipe;
+		long i = recipe.getIdRecipe();
+		this.recipe = CookBook.getRecipeByID(i);
 		rn.setText(recipe.getRecipeName());
 		ct.setText(Long.toString(recipe.getCookingTime()));
 		pt.setText(Long.toString(recipe.getPreparationTime()));
@@ -109,6 +105,10 @@ public class RecipeViewController {
 		
 	}
 	public void showDetails() {
+		row1 = 0;
+		row2 = 0;
+		grid1.getChildren().clear();
+		grid2.getChildren().clear();
 		grid1.getColumnConstraints().add(new ColumnConstraints(200));
 	    grid1.getColumnConstraints().add(new ColumnConstraints(100));
 	    Iterator<Ingredient> iterator1 = recipe.getRequiredIngredients().iterator();
@@ -151,6 +151,8 @@ public class RecipeViewController {
 	}
 	@FXML
 	public void editRecipe() {
+		long i = recipe.getIdRecipe();
+		recipe = CookBook.getRecipeByID(i);
 		ctf.setText(ct.getText());
 		ptf.setText(pt.getText());
 		rnf.setText(rn.getText());
@@ -270,10 +272,9 @@ public class RecipeViewController {
 	}
 	@FXML
 	public void cancel() {
-		grid1.getChildren().clear();
-		grid2.getChildren().clear();
 		row1 = 0;
 		row2 = 0;
+		setInformation(recipe);
 		showDetails();
 		saveBtn.setVisible(false);
 		cancelBtn.setVisible(false);
