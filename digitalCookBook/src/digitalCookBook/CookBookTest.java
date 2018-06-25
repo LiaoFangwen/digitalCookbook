@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CookBookTest {
-	
+	/*
 	@Test
 	public void testAddRecipe() throws ClassNotFoundException, SQLException {
 		CookBook cb1 = new CookBook("cb1");
@@ -116,7 +116,7 @@ public class CookBookTest {
 		assertEquals("Unknown", recipe2.getAreaName());
 		assertEquals("Unknown", recipe3.getAreaName());
 	}
-
+*/
 
 	@Test
 	public void testEditRecipe() throws ClassNotFoundException, SQLException {
@@ -141,8 +141,17 @@ public class CookBookTest {
 		recipe2.addPreparationStep(new PreparationStep("Reis anbraten."));
 		recipe2.addPreparationStep(new PreparationStep("Eier darin verruehren."));
 		recipe2.addPreparationStep(new PreparationStep("Mit Fruehlingszwiebeln bestreuen."));
+		for(PreparationStep step: recipe2.getPreparationSteps()) {
+			System.out.println(step.getContent() + step.getIndex());
+		}
 		CookBook.editRecipe(recipe1, recipe2);
+		for(PreparationStep step: recipe2.getPreparationSteps()) {
+			System.out.println(step.getContent() + step.getIndex());
+		}
 		Recipe recipe3 = CookBook.getRecipeByID(i);
+		for(PreparationStep step: recipe3.getPreparationSteps()) {
+			System.out.println(step.getContent() + step.getIndex());
+		}
 		assertEquals("Jiangsu", recipe3.getAreaName());
 		assertEquals("Eier darin verruehren.", recipe3.getPreparationSteps().get(3).getContent());
 		

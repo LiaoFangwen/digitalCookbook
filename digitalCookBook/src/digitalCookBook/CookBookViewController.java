@@ -1,6 +1,7 @@
 package digitalCookBook;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class CookBookViewController {
 	private Label searchLabel;
 	@FXML
     private MainApp mainApp;
-
+	
     
     /**
      * Is called by the main application to give a reference back to itself.
@@ -45,7 +46,7 @@ public class CookBookViewController {
     
     }
     @FXML
-    public void showSearchResult() throws IOException {
+    public void showSearchResult() throws IOException, ClassNotFoundException, SQLException {
     	searchString = searchField.getText();
     	
     	mainApp.showSearchView();
@@ -70,6 +71,12 @@ public class CookBookViewController {
                     try {
 						showSearchResult();
 					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
                 }

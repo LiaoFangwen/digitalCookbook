@@ -87,6 +87,8 @@ public class RecipeViewController {
 		sa.setText(Integer.toString(recipe.getServeAmount()));
 		this.recipe.setRequiredIngredients(recipe.getRequiredIngredients());
 		this.recipe.setPreparationStep(recipe.getPreparationSteps());
+		ingE.clear();
+		stepE.clear();
 		Iterator<Ingredient> iteratorI = recipe.getRequiredIngredients().iterator();
 		while(iteratorI.hasNext()) {
 			ingE.add(iteratorI.next());
@@ -197,7 +199,7 @@ public class RecipeViewController {
 			gridE1.add(unitE, 2, rowE1);
 			gridE1.add(deleteE, 3, rowE1);
 			gridE1.add(addS, 4, rowE1);
-			int index = gridE1.getRowIndex(deleteE);
+			int index = GridPane.getRowIndex(deleteE);
 			deleteE.setOnMouseClicked((new EventHandler<MouseEvent>() {    
 	            @Override  
 	            public void handle(MouseEvent event) { 	            	
@@ -243,7 +245,7 @@ public class RecipeViewController {
 			gridE2.add(contentE, 1, rowE2);
 			gridE2.add(deleteE, 2, rowE2);
 			gridE2.add(addS, 3, rowE2);
-			int index = gridE2.getRowIndex(deleteE);
+			int index = GridPane.getRowIndex(deleteE);
 			deleteE.setOnMouseClicked((new EventHandler<MouseEvent>() {    
 	            @Override  
 	            public void handle(MouseEvent event) { 	            	
@@ -274,6 +276,8 @@ public class RecipeViewController {
 	public void cancel() {
 		row1 = 0;
 		row2 = 0;
+		rowE1 = 0;
+		rowE2 = 0;
 		setInformation(recipe);
 		showDetails();
 		saveBtn.setVisible(false);

@@ -219,9 +219,11 @@ public class CookBook {
 		for(Ingredient ingredient:recipeNew.getRequiredIngredients()) {
 			ingredient.setRecipeID(idRecipe);
 		}
-		
+		int index = 0;
 		for(PreparationStep step:recipeNew.getPreparationSteps()) {
 			step.setRecipeID(idRecipe);
+			step.setIndex(index);
+			index++;
 		}
 		createNewArea(recipeNew.getAreaName());
 		

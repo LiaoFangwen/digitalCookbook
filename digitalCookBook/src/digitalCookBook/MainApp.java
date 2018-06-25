@@ -67,7 +67,7 @@ public class MainApp extends Application {
 	    }
 	}
 	
-	 public void showSearchView() throws IOException {
+	 public void showSearchView() throws IOException, ClassNotFoundException, SQLException {
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchGUI.fxml"));
 	    	
 	    	AnchorPane searchView = loader.load();
@@ -79,7 +79,7 @@ public class MainApp extends Application {
 	    	//searchGUI.initOwner(primaryStage);
 	    	SearchViewController controller = loader.getController();
 	        controller.setMainApp(this);	
-	        controller.setCb(testcb);
+	        controller.setCb(new CookBook("cb"));
 	        controller.setSearchField1(CookBookViewController.searchString);
 	        controller.setSearchString(CookBookViewController.searchString);
 	        controller.showRecipe();
